@@ -101,15 +101,20 @@ How would we do it in a distributed fashion?
 
 Well, we first Map all the words to lower case and then Map them with a 1
 
-(Why cant we just write a simple java program with a simple HashMap and count all of them? - Because, its 7 seasons worth of data and a lot of dialogues-> Any regular Java program would just be too inefficient to do this by its own, also we have a couple of spare machines)
+(Why cant we just write a simple java program with a simple HashMap and count all of them? - Because, its 7 seasons worth of data and a lot of dialogues-> Any regular Java program would just be too inefficient to do this by its own, also we have a couple of spare machines :) )
 
 (Map Stage)
 
 arya-> 1
+
 arya-> 1
+
 boy-> 1
+
 boy-> 1
+
 yoren-> 1
+
 boy-> 1
 ...And so on
 
@@ -126,11 +131,15 @@ So all the words on the same machines get their counts added up!
 Lets say we have a 2 machine cluster, our data set after the reduce running on each machine could look like the following->
 
 Machine 1
+
 arya->1
+
 boy->2
 
 Machine 2
+
 boy->2
+
 yoren->1
 
 So how do we get the final count?We run one more shuffle and reduce step and get the final counts
@@ -140,7 +149,9 @@ So all data from Machine 1 is transferred to Machine 2 and an additional reduce 
 Machine 2:
 
 boy->4
+
 arya->2
+
 yoren->1
 
 Yay!!We did it!!
@@ -148,6 +159,53 @@ Yay!!We did it!!
 So that folks is what a Map Reduce is!We take down any complex computation, in our case the count of words and break it down into chunks of Map Reduce steps which can then be distributed across multiple machines.
 
 We'll get more hands on with our GOT analysis, but just in a bit
+
+###Apache Hadoop 2.0
+
+Lets pick up one of the most popular frameworks/setups out there to do this analysis- Apache Hadoop.
+
+The complete stacks looks a little bit like below-:
+
+![alt text](https://imgur.com/6VlwfWn "Apache Hadoop 2.0")
+
+We'll get to the specifics of each component in a while.For now we will just talk about FileStorage
+
+Given that Big Data aims to solve problems with both Volume and Velocity, typical FileSystems do not quite match up and there are several of them now.But we'll talk only about the important 3 - 
+
+1. Local FS- (What you use on your current systems)
+2. HDFS - Hadoop Distribute File Storage
+3. Amazon S3.
+
+- HDFS provides a logical volume on top of existing physical local volumes across nodes.
+
+- It does so with the help of NameNodes and DataNodes.
+
+- NameNodes store pointers to File blocks on respective machines
+
+- Replication of data is done to ensure reliability
+
+###Resources/Containers/Nodes
+
+Resource management on Hadoop is performed by [YARN](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)
+
+Resources from multiple machines are broken down into VCORES and Memory units
+
+When a Map or Reduce job runs -> it has to request YARN to allocate resources to it.
+
+These resources are allocated in the form of containers which are nothing but JVM machines on each of the individual physical machines in the cluster and are monitored by YARN
+
+Both map and reduce steps have fixed max containers size that they cannot breach.By default this is set to 4GB and 1 VCORE.
+
+Make sure that your containers are big enough to compute at least data for a single key and big enough to hold the output of a reduce job.
+
+Data can be read either from HDFS or S3 in case we use Apache Hadoop.(Local FS can also be used, but thats a different story)
+
+___
+
+Word Count Exercise - Game of Thrones Analysis using MR
+
+
+
 
 
 
