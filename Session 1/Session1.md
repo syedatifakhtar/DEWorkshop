@@ -1,4 +1,4 @@
-#What is Big Data? Why Big Data?
+# What is Big Data? Why Big Data?
 
 ### The 4 V's
 
@@ -160,7 +160,7 @@ So that folks is what a Map Reduce is!We take down any complex computation, in o
 
 We'll get more hands on with our GOT analysis, but just in a bit
 
-###Apache Hadoop 2.0
+### Apache Hadoop 2.0
 
 Lets pick up one of the most popular frameworks/setups out there to do this analysis- Apache Hadoop.
 
@@ -184,7 +184,7 @@ Given that Big Data aims to solve problems with both Volume and Velocity, typica
 
 - Replication of data is done to ensure reliability
 
-###Resources/Containers/Nodes
+### Resources/Containers/Nodes
 
 Resource management on Hadoop is performed by [YARN](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)
 
