@@ -166,7 +166,7 @@ Lets pick up one of the most popular frameworks/setups out there to do this anal
 
 The complete stacks looks a little bit like below-:
 
-![alt text](https://imgur.com/6VlwfWn "Apache Hadoop 2.0")
+![Apache Hadoop 2.0](https://i.imgur.com/6VlwfWn.png "Apache Hadoop 2.0")
 
 We'll get to the specifics of each component in a while.For now we will just talk about FileStorage
 
